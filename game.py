@@ -87,24 +87,25 @@ while running:
 			print("take out the darn trash kiddo")
 		
 
-		#read current key presses and update player accordingly
-		pressed_keys = pygame.key.get_pressed()
-		player.update(pressed_keys)
-		collidableSprites.update()
+	#read current key presses and update player accordingly
+	pressed_keys = pygame.key.get_pressed()
+	player.update(pressed_keys)
+	collidableSprites.update()
 
-		# TODO make this draw the background
-		screen.fill((0,0,0))
+	# TODO make this draw the background
+	screen.fill((0,0,0))
 
-		# Draw all sprites
-		for entity in allSprites:
-				screen.blit(entity.surf, entity.rect)
+	# Draw all sprites
+	for entity in allSprites:
+			screen.blit(entity.surf, entity.rect)
 
-		# Do collision detection
-		#if pygame.sprite.spritecollideany(player, collidableSprites):
-			#TODO handle collisions
-		
-		#render everything
-		pygame.display.flip()
+	# Do collision detection 
+	#if pygame.sprite.spritecollideany(player, collidableSprites):
+		#TODO handle collisions
+
+	
+	#render everything
+	pygame.display.flip()
 
 
 # Done! Time to quit.
