@@ -16,11 +16,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Image Sorting")
 
 # Load the five images
-image1 = pygame.image.load("minigame/warm_1.png")
-image2 = pygame.image.load("minigame/warm_2.png")
-image3 = pygame.image.load("minigame/warm_3.png")
-image4 = pygame.image.load("minigame/warm_4.png")
-image5 = pygame.image.load("minigame/warm_5.png")
+image1 = pygame.image.load("warm_1.png")
+image2 = pygame.image.load("warm_2.png")
+image3 = pygame.image.load("warm_3.png")
+image4 = pygame.image.load("warm_4.png")
+image5 = pygame.image.load("warm_5.png")
 
 # Create a list of the images
 images = [image1, image2, image3, image4, image5]
@@ -35,15 +35,6 @@ random.shuffle(images)
 # Create a dictionary to store the correct positions of the images
 correct_positions = {image1: (100, 100), image2: (250, 100), image3: (400, 100), image4: (550, 100), image5: (700, 100)}
 
-# Set the font for the instructions
-font = pygame.font.SysFont('Arial', 30)
-
-# Create a text surface for the instructions
-text = font.render('Sort the images in the correct order', True, BLACK)
-
-# Set the initial position of the mouse
-mouse_position = None
-
 # Set the running variable to True
 running = True
 
@@ -52,36 +43,32 @@ clock = pygame.time.Clock()
 
 # Main game loop
 while running:
+
     # Handle events
     for event in pygame.event.get():
-        # If the user clicks the close button, exit the game
+        # If the user clicks the close button, exit the loop and close the window
         if event.type == pygame.QUIT:
             running = False
-        # If the user clicks the mouse button, get the mouse position
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_position = pygame.mouse.get_pos()
-        # If the user releases the mouse button, check if an image is being dragged and if it is in the correct position
-        elif event.type == pygame.MOUSEBUTTONUP:
-            if mouse_position is not None:
-                for image in images:
-                    if image.get_rect().collidepoint(mouse_position):
-                        if image.get_rect().center == correct_positions[image]:
-                            images.remove(image)
-                            correct_positions.pop(image)
-                            if len(images) == 0:
-                                text = font.render('Congratulations, you sorted the images!', True, BLACK)
-                            break
-                        else:
-                            image_position = image_positions[images.index(image)]
-                            images.remove(image)
-                            images.insert(0, image)
-                            image_positions.remove(image_position)
-                            image_positions.insert(0, image_position)
-                        break
+
+        # If the user types two numbers, swap the two corresponding images
+        elif event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
+            num = int(event.unicode)
+            if num >= 1 and num <= 5:
+                if num - 1 < len(images) - 1:
+                    images[num - 1], images[num] = images[num], images[num - 1]
 
     # Clear the screen
     screen.fill(WHITE)
 
     # Draw the images on the screen
-    for i, image in enumerate(images):
-        screen.blit
+    for i in range(len(images)):
+        screen.blit(images[i], image_positions[i])
+
+    # Update the screen
+    pygame.display.flip()
+
+    # Limit the frame rate to 60 FPS
+    clock.tick(60)
+
+# Quit Pygame
+pygame.quit()
