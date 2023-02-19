@@ -27,6 +27,7 @@ SCREEN_HEIGHT = 800
 currAnimationFrame = 0
 
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+pygame.display.set_caption("Climate Change Casa")
 
 # add and schedule events here and handle them in the game loop
 TAKEOUT_TRASH = pygame.USEREVENT + 1
