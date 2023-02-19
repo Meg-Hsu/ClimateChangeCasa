@@ -33,7 +33,7 @@ import random
 random.shuffle(images)
 
 # Create a dictionary to store the correct positions of the images
-correct_positions = {image1: (100, 100), image2: (250, 100), image3: (400, 100), image4: (550, 100), image5: (700, 100)}
+correct_positions = [image1, image2, image3, image4, image5]
 
 # Set the running variable to True
 running = True
@@ -42,20 +42,29 @@ running = True
 clock = pygame.time.Clock()
 
 # Main game loop
+num1 = -1
+num2 = -1
 while running:
-
-    # Handle events
+    # depending on if its num 1 or 2, do diff things :")
     for event in pygame.event.get():
-        # If the user clicks the close button, exit the loop and close the window
-        if event.type == pygame.QUIT:
-            running = False
+        if num1 != -1:
+            if event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
+                num2 = int(event.unicode)
+                images[num1 - 1], images[num2 - 1] = images[num2 - 1], images[num1 - 1]
+                num1 = -1
+                num2 = -1
+        
+        else:
+            if event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
+                num1 = int(event.unicode)
+        
+        count = 0
+        
+        if images == correct_positions:
+            # put a "u won!" msg here + exit button
+            pygame.quit()
+        
 
-        # If the user types two numbers, swap the two corresponding images
-        elif event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
-            num = int(event.unicode)
-            if num >= 1 and num <= 5:
-                if num - 1 < len(images) - 1:
-                    images[num - 1], images[num] = images[num], images[num - 1]
 
     # Clear the screen
     screen.fill(WHITE)
