@@ -17,20 +17,33 @@ GREY_BIN = pygame.image.load(
 
 def trash_game():
     win_game = False
-    strikes = 3
+    strikes = 0
     playing = True
-    tup_count = 0
     grey_bin = pygame.Rect(400, 100, BIN_WIDTH, BIN_HEIGHT)
     green_bin = pygame.Rect(800, 100, BIN_WIDTH, BIN_HEIGHT)
     blue_bin = pygame.Rect(1200, 100, BIN_WIDTH, BIN_HEIGHT)
-    to_sort = [('Assets/TrashGame/Compost1', "compost"), ('Assets/TrashGame/Compost2', "compost"), ('Assets/TrashGame/Compost3', "compost"),
-               ('Assets/TrashGame/Compost4', "compost"), ('Assets/TrashGame/Recycle1', "recycle"), ('Assets/TrashGame/Recycle2', "recycle"),
-               ('Assets/TrashGame/Recycle3', "recycle"), ('Assets/TrashGame/Recycle4', "recycle"), ('Assets/TrashGame/Recycle5', "recycle"),
-               ('Assets/TrashGame/Recycle6', "recycle"), ('Assets/TrashGame/Trash1', "trash"), ('Assets/TrashGame/Trash1', "trash")]
+    to_sort = [('Assets/TrashGame/Compost1', green_bin), ('Assets/TrashGame/Compost2', green_bin), ('Assets/TrashGame/Compost3', green_bin),
+               ('Assets/TrashGame/Compost4', green_bin), ('Assets/TrashGame/Recycle1', blue_bin), ('Assets/TrashGame/Recycle2', blue_bin),
+               ('Assets/TrashGame/Recycle3', blue_bin), ('Assets/TrashGame/Recycle4', blue_bin), ('Assets/TrashGame/Recycle5', blue_bin),
+               ('Assets/TrashGame/Recycle6', blue_bin), ('Assets/TrashGame/Trash1', grey_bin), ('Assets/TrashGame/Trash1', grey_bin)]
     while playing:
         #make sure clock continues counting down? (take in time, return time??)
         for item in to_sort:
             draw_window(item[0], blue_bin, green_bin, grey_bin)
+            while not pygame.mouse.get_pressed():
+                os.wait()
+            
+            if not item[1].rect.collidepoint(pygame.mouse.get_pos()):
+                strikes += strikes
+                if strikes >= 3:
+                    break
+        if strikes >= 3:
+            #print out ask to continue
+            os.wait(5000)
+            #case for handling continue?
+        else:
+            win_game = True
+            playing = False
 
 
         
@@ -40,6 +53,7 @@ def draw_window(item, blue_bin, green_bin, grey_bin):
     WINDOW.blit(BLUE_BIN, (blue_bin.x, blue_bin.y))
     WINDOW.blit(GREY_BIN, (grey_bin.x, grey_bin.y))
     WINDOW.blit(GREEN_BIN, (green_bin.x, green_bin.y))
+    WINDOW.blit(pygame.image.load(item).convert.alpha(), 800, 600)
 
     pygame.display.update()
 
