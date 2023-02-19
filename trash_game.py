@@ -1,9 +1,10 @@
 import os
+import time
 import pygame
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
-BIN_WIDTH, BIN_HEIGHT = 150, 75 #maybe change
+BIN_WIDTH, BIN_HEIGHT = 150, 200 #maybe change
 WINDOW = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 BACKG = pygame.transform.scale(pygame.image.load(
     os.path.join('Assets', 'kitchen_background.png')), (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -24,10 +25,10 @@ def trash_game():
     win_game = False
     strikes = 0
     playing = True
-    has_answered = False
-    grey_bin = pygame.Rect(200, 100, BIN_WIDTH, BIN_HEIGHT)
-    green_bin = pygame.Rect(600, 100, BIN_WIDTH, BIN_HEIGHT)
-    blue_bin = pygame.Rect(1000, 100, BIN_WIDTH, BIN_HEIGHT)
+    index = 0
+    grey_bin = pygame.Rect(150, 100, BIN_WIDTH, BIN_HEIGHT)
+    green_bin = pygame.Rect(550, 100, BIN_WIDTH, BIN_HEIGHT)
+    blue_bin = pygame.Rect(950, 100, BIN_WIDTH, BIN_HEIGHT)
     to_sort = [('Assets/TrashGame/Compost1.png', COMPOST_KEY), ('Assets/TrashGame/Compost2.png', COMPOST_KEY), ('Assets/TrashGame/Compost3.png', COMPOST_KEY),
                ('Assets/TrashGame/Compost4.png', COMPOST_KEY), ('Assets/TrashGame/Recycle1.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle2.png', RECYCLE_KEY),
                ('Assets/TrashGame/Recycle3.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle4.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle5.png', RECYCLE_KEY),
@@ -40,35 +41,29 @@ def trash_game():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
-        #make sure clock continues counting down? (take in time, return time??)
-        for item in to_sort:
-            has_answered = False
-            draw_window(item[0], blue_bin, green_bin, grey_bin)
-            while not has_answered:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if not event.key == item[1]:
-                            strikes += 1
-                        break
-                if strikes >= 3:
-                    break
-        if strikes >= 3:
-            #print out ask to continue
-            os.wait(5000)
-            #case for handling continue?
-        else:
-            win_game = True
-            # playing = False
+        draw_window(to_sort[index][0], blue_bin, green_bin, grey_bin)
+        keys_pressed = pygame.key.get_pressed()
+        if check_response(keys_pressed, to_sort[index][1]) == 0:
+            index +=1
+        time.sleep(.1)
+        if index >= len(to_sort) or strikes >= 3:
+            if strikes < 3:
+                win_game = True
+            break
 
-
-        
+                
+def check_response(keys_pressed, corr_key):
+    if keys_pressed[corr_key]:
+        return 0     
+    return -1         
+     
 
 def draw_window(item, blue_bin, green_bin, grey_bin):
     WINDOW.blit(BACKG, (0, 0))
     WINDOW.blit(BLUE_BIN, (blue_bin.x, blue_bin.y))
     WINDOW.blit(GREY_BIN, (grey_bin.x, grey_bin.y))
     WINDOW.blit(GREEN_BIN, (green_bin.x, green_bin.y))
-    WINDOW.blit(pygame.image.load(item), (800, 600))
+    WINDOW.blit(pygame.transform.scale(pygame.image.load(item), (75, 100)), (600, 600))
 
     pygame.display.update()
 
