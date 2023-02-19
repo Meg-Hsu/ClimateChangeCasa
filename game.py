@@ -113,6 +113,9 @@ class Player(pygame.sprite.Sprite):
 			if self.rect.bottom >= SCREEN_HEIGHT:
 					self.rect.bottom = SCREEN_HEIGHT
 
+			if (player.rect).colliderect(star):
+				pygame.event.post(pygame.event.Event(STAR_EVENT))
+
 player = Player(42,42)
 w = Wall(100,100,100,100)
 
@@ -122,6 +125,7 @@ allSprites.add(collidableSprites)
 allSprites.add(player)
 
 background = pygame.Surface((47*32, 25*32))
+star = pygame.Rect(star_x, star_y, 75, 75)
 
 running = True
 while running:
@@ -189,8 +193,6 @@ while running:
 				player.surf = player.downWalkCycleImgs[currAnimationFrame]
 			if(player.isWalking["up"]):
 				player.surf = player.upWalkCycleImgs[currAnimationFrame]
-		if (player.rect).colliderect(STAR):
-			pygame.event.post(pygame.event.Event(STAR_EVENT))
 	
 	oldPlayerX, oldPlayerY = player.rect.topleft
 
