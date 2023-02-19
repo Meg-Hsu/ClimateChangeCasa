@@ -11,9 +11,9 @@ BACKG = pygame.transform.scale(pygame.image.load(
 BLUE_BIN = pygame.image.load(
     os.path.join('Assets', 'TrashGame', 'recycle.png'))
 GREEN_BIN = pygame.image.load(
-    os.path.join('Assets', 'TrashGame', 'recycle.png'))
+    os.path.join('Assets', 'TrashGame', 'compost.png'))
 GREY_BIN = pygame.image.load(
-    os.path.join('Assets', 'TrashGame', 'recycle.png'))
+    os.path.join('Assets', 'TrashGame', 'trash.png'))
 
 def trash_game():
     win_game = False
@@ -23,13 +23,19 @@ def trash_game():
     grey_bin = pygame.Rect(400, 100, BIN_WIDTH, BIN_HEIGHT)
     green_bin = pygame.Rect(800, 100, BIN_WIDTH, BIN_HEIGHT)
     blue_bin = pygame.Rect(1200, 100, BIN_WIDTH, BIN_HEIGHT)
+    to_sort = [('Assets/TrashGame/Compost1', "compost"), ('Assets/TrashGame/Compost2', "compost"), ('Assets/TrashGame/Compost3', "compost"),
+               ('Assets/TrashGame/Compost4', "compost"), ('Assets/TrashGame/Recycle1', "recycle"), ('Assets/TrashGame/Recycle2', "recycle"),
+               ('Assets/TrashGame/Recycle3', "recycle"), ('Assets/TrashGame/Recycle4', "recycle"), ('Assets/TrashGame/Recycle5', "recycle"),
+               ('Assets/TrashGame/Recycle6', "recycle"), ('Assets/TrashGame/Trash1', "trash"), ('Assets/TrashGame/Trash1', "trash")]
     while playing:
         #make sure clock continues counting down? (take in time, return time??)
-        draw_window()
+        for item in to_sort:
+            draw_window(item[0], blue_bin, green_bin, grey_bin)
+
 
         
 
-def draw_window(blue_bin, green_bin, grey_bin):
+def draw_window(item, blue_bin, green_bin, grey_bin):
     WINDOW.blit(BACKG, (0, 0))
     WINDOW.blit(BLUE_BIN, (blue_bin.x, blue_bin.y))
     WINDOW.blit(GREY_BIN, (grey_bin.x, grey_bin.y))
