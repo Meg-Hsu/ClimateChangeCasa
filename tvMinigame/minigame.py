@@ -1,10 +1,11 @@
 import pygame
+pygame.font.init()
+pygame.font.Font("Assets/pixel_font.ttf", 5)
 
-# Define the colors we will use in RGB format
+# rgb colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
-# Initialize Pygame
 pygame.init()
 
 # Set the width and height of the screen (adjust to your preference)
@@ -12,27 +13,29 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+INSTRUCTION_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
+
 # Set the caption of the window
 pygame.display.set_caption("Image Sorting")
 
 # Load the five images
-image1 = pygame.image.load("warm_1.png")
-image2 = pygame.image.load("warm_2.png")
-image3 = pygame.image.load("warm_3.png")
-image4 = pygame.image.load("warm_4.png")
-image5 = pygame.image.load("warm_5.png")
+image1 = pygame.image.load("tvMinigame/warm_1.png")
+image2 = pygame.image.load("tvMinigame/warm_2.png")
+image3 = pygame.image.load("tvMinigame/warm_3.png")
+image4 = pygame.image.load("tvMinigame/warm_4.png")
+image5 = pygame.image.load("tvMinigame/warm_5.png")
 
 # Create a list of the images
 images = [image1, image2, image3, image4, image5]
 
 # Set the positions of the images on the screen
-image_positions = [(100, 100), (250, 100), (400, 100), (550, 100), (700, 100)]
+image_positions = [(100, 200), (250, 200), (400, 200), (550, 200), (700, 200)]
 
 # Shuffle the order of the images
 import random
 random.shuffle(images)
 
-# Create a dictionary to store the correct positions of the images
+# Create a list to store the correct positions of the images
 correct_positions = [image1, image2, image3, image4, image5]
 
 # Set the running variable to True
@@ -45,8 +48,16 @@ clock = pygame.time.Clock()
 num1 = -1
 num2 = -1
 while running:
+    instructions = INSTRUCTION_FONT.render(
+        "Each square corresponds to a number from the leftmost square (1) to the rightmost square (5). Type in two numbers to swap the positions of the squares to sort the colors in order.", 1, (0,0,0))
+    screen.blit(instructions, (SCREEN_WIDTH//2 - instructions.get_width()//2, SCREEN_HEIGHT - 30 - instructions.get_height()))
+
     # depending on if its num 1 or 2, do diff things :")
     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+
         if num1 != -1:
             if event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
                 num2 = int(event.unicode)
@@ -61,11 +72,9 @@ while running:
         count = 0 
         
         if images == correct_positions: 
-            # put a "u won!" msg here + exit button
+            print("you won")
             pygame.quit()
         
-
-
     # Clear the screen
     screen.fill(WHITE)
 
