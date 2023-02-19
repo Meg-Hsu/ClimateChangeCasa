@@ -3,6 +3,7 @@ import pytmx
 
 from waterPlantsGame.waterThePlants import * 
 from trash_game import *
+#from tvMinigame.minigame import *
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
@@ -30,10 +31,10 @@ currAnimationFrame = 0
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pytmx_map = pytmx.load_pygame("floor_map.tmx")
 
-STAR = pygame.transform.scale(pygame.image.load(
-    os.path.join('Assets','stars.gif')), (75, 75))
-star_x = 90
-star_y = 300
+# STAR = pygame.transform.scale(pygame.image.load(
+#     os.path.join('Assets','stars.png')), (75, 75))
+# star_x = 90
+# star_y = 300
 
 
 # add and schedule events here and handle them in the game loop
@@ -55,6 +56,19 @@ class Wall(pygame.sprite.Sprite):
 		self.rect = self.surf.get_rect()
 		self.rect.x = x
 		self.rect.y = y
+
+class Star(pygame.sprite.Sprite):
+	def __init__(self, x, y):
+		super().__init__()
+		self.surf = pygame.transform.scale(pygame.image.load(
+    os.path.join('Assets','stars.png')), (50, 50))
+		self.rect = self.surf.get_rect()
+		self.rect.x = x
+		self.rect.y = y
+	def update(self, new_x, new_y):
+		self.rect.x = new_x
+		self.rect.y = new_y
+
 
 
 class Player(pygame.sprite.Sprite):
@@ -113,22 +127,22 @@ class Player(pygame.sprite.Sprite):
 			if self.rect.bottom >= SCREEN_HEIGHT:
 					self.rect.bottom = SCREEN_HEIGHT
 
-			if (player.rect).colliderect(star):
-				pygame.event.post(pygame.event.Event(STAR_EVENT))
-
 player = Player(42,42)
 w = Wall(100,100,100,100)
+star = Star(90,300)
 
 collidableSprites = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
 allSprites.add(collidableSprites)
 allSprites.add(player)
+allSprites.add(star)
 
 background = pygame.Surface((47*32, 25*32))
-star = pygame.Rect(star_x, star_y, 75, 75)
 
 running = True
 while running:
+	if player.rect.colliderect(star.rect):
+		pygame.event.post(pygame.event.Event(STAR_EVENT))
 	#create star rectangle using STAR
 	#waterThePlants.doWaterThePlantsGame()
 	for event in pygame.event.get():
@@ -169,19 +183,25 @@ while running:
 		
 		elif event.type == STAR_EVENT:
 			if start_event == "plants":
-				doWaterThePlantsGame()	#return value to add points
+				win = doWaterThePlantsGame()	#return value to add points
+				time.sleep(.2)
 				start_event = "trash"
 				star_x = 800
-				star_y = 100
+				star_y = 650
+				star.update(star_x, star_y)
+				#screen.blit(sprite.surf, (star_x, star_y))
 				#move the star
 			elif start_event == "trash":
-				trash_game()	#return value to add points
+				win = trash_game()	#return value to add points
+				time.sleep(.2)
 				start_event = "tv"
+				star_x = 800
+				star_y = 100
+				star.update(star_x, star_y)
 				#move the star
 			elif start_event == "tv":
 				print("tv program")
 				#call tv program	return value to add points
-				#make star disappear
 				#once done, call end screen
 		elif event.type == TOGGLE_ANIMATION_FRAME:
 			currAnimationFrame = 1 - currAnimationFrame
@@ -195,6 +215,10 @@ while running:
 				player.surf = player.upWalkCycleImgs[currAnimationFrame]
 	
 	oldPlayerX, oldPlayerY = player.rect.topleft
+
+	if player.rect.colliderect(star.rect):
+		pygame.event.post(pygame.event.Event(STAR_EVENT))
+
 
 
 	#read current key presses and update player accordingly
@@ -234,11 +258,11 @@ while running:
 						break
 
 	screen.blit(background, (0,0))
-	screen.blit(STAR, (star_x,star_y))
+	#screen.blit(STAR, (star_x,star_y))
 
 	# Draw all sprites
 	for sprite in allSprites:
-			screen.blit(sprite.surf, sprite.rect)
+		screen.blit(sprite.surf, sprite.rect)
 	
 	# render everything
 	pygame.display.flip()

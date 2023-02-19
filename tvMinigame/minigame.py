@@ -16,11 +16,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Image Sorting")
 
 # Load the five images
-image1 = pygame.image.load("warm_1.png")
-image2 = pygame.image.load("warm_2.png")
-image3 = pygame.image.load("warm_3.png")
-image4 = pygame.image.load("warm_4.png")
-image5 = pygame.image.load("warm_5.png")
+image1 = pygame.image.load("tvMiniGame/warm_1.png")
+image2 = pygame.image.load("tvMiniGame/warm_2.png")
+image3 = pygame.image.load("tvMiniGame/warm_3.png")
+image4 = pygame.image.load("tvMiniGame/warm_4.png")
+image5 = pygame.image.load("tvMiniGame/warm_5.png")
 
 # Create a list of the images
 images = [image1, image2, image3, image4, image5]
