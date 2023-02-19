@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="47" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
+ <editorsettings>
+  <export target="floor_map..tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" source="house.tsx"/>
+ <layer id="2" name="main" width="47" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3WTQ6CMBAF4DERLV2jVbciwoG8ihfwMv5cUlQayVhoZ2xTMC7eggTolwl9NJkAJCgrANg4ZmG55rwDJ4NPY1eq+t65Y4o65zrXOrfmekaMbT0ZyC6RXTLsRSS7QPaUYRc/bFeB7ArZFcMuLWtUgewVslcMu/JoX4J7v+Ue7Lb18kBzxx3JsT+emfYk1DeDOxLPMGvuEU22hrmWkey4Z57rECP+9q87kmOXkeymjqTalUc75RypO/IC77MY1b53WINi75sDnknbnjLstjMB9Ztxtet+H6Nd97u2S4bd93mGatd7Fe8V/W/SMf2b1gOxUzqqbYthN/V7TLuts/BZZEj2E7z2nmuGZD+M2H4csd3UY67ZBXim7LDfAc26YIsYEwAA
+  </data>
+ </layer>
+ <layer id="5" name="walls" width="47" height="26">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu2WSw7DIAxEOUTatN02n/b+F0zXQ4j/JpUykhdIYD8IGVxKrccvXsy4EWNNDoxhh7Glr2DuQoy962Xm4kiz35ay2T11NvZRMFfCjnkldbiS8Fjmar4ZtV9Jznvh+9tkqMOthzWOZPFIDTu1JurOoPAM8V15l/pcP448FvYIj7rYa6FH/BP72TxS0keif2l6k1VYg2LnKqN/iLoznj1gS1k+E6EsdvxXOG/T05En29979QQe/u7JTnnWUS/Sm92ii92eU6Pe7Hs+xo05YE2rv98AXjcXFhgTAAA=
+  </data>
+ </layer>
+ <layer id="4" name="thingies" width="47" height="26" locked="1">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3UsQ3AIBBDUc/BKmECmCBU7D8FZoFIpOBE8p/k5io3Z+lZWrwD2CtLvTrNie6y6nLn4twHdgf+xL86t+ZI3hjV6BIveRvVoksAAAB83ADa/qHhGBMAAA==
+  </data>
+ </layer>
+</map>
