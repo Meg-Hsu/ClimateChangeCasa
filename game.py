@@ -1,9 +1,10 @@
 import pygame
-
+from waterPlantsGame.waterThePlants import * 
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
 		RLEACCEL,
+		K_q,
 		K_UP,
 		K_DOWN,
 		K_LEFT,
@@ -55,9 +56,9 @@ class Player(pygame.sprite.Sprite):
 		isColliding = False
 		speed = 2
 		# can either be 1 or 2
-		isFemme = 1;
+		isFemme = 1
 		standingImages = {
-			1: pygame.image.load("Assets/char_1.png").convert_alpha(), 
+			1: pygame.image.load("Assets/char_1.png").convert_alpha(),
 			2: pygame.image.load("Assets/char_2.png").convert_alpha()
 		}
 		
@@ -90,22 +91,6 @@ class Player(pygame.sprite.Sprite):
 
 			self.rect.move_ip(velocityX, velocityY)
 
-			# if(self.isColliding):
-			# 	#colliding at right of player
-			# 	if(velocityX > 0):
-			# 		self.rect.move_ip(-(self.speed + 3), 0)
-			# 	#colliding at left of player
-			# 	elif(velocityX < 0):
-			# 		self.rect.move_ip(self.speed + 3, 0)
-			# 	# #colliding at bottom of player
-			# 	# if(velocityY > 0):
-			# 	# 	self.rect.move_ip(0, self.speed + 1)
-			# 	# 	self.isColliding = False
-			# 	# #colliding at top of player
-			# 	# elif(velocityY < 0):
-			# 	# 	self.rect.move_ip(0, -(self.speed + 1))
-			# 	# 	self.isColliding = False
-
 			# Keep player on the screen
 			if self.rect.left < 0:
 					self.rect.left = 0
@@ -116,11 +101,8 @@ class Player(pygame.sprite.Sprite):
 			if self.rect.bottom >= SCREEN_HEIGHT:
 					self.rect.bottom = SCREEN_HEIGHT
 
-
 player = Player()
-
 t = Wall(100,100,100,100)
-
 
 collidableSprites = pygame.sprite.Group()
 collidableSprites.add(t)
@@ -130,11 +112,13 @@ allSprites.add(player)
 
 running = True
 while running:
+	#waterThePlants.doWaterThePlantsGame()
 	for event in pygame.event.get():
 		if event.type == KEYDOWN:
 			if event.key == K_ESCAPE:
 					running = False
-			if event.key == K_UP:
+			elif event.key == K_UP:
+				#doWaterThePlantsGame()
 				player.isWalking["up"] = True
 			elif event.key == K_DOWN:
 				player.isWalking["down"] = True 
@@ -142,6 +126,8 @@ while running:
 				player.isWalking["left"] = True
 			elif event.key == K_RIGHT:
 				player.isWalking["right"] = True
+			elif event.key ==  K_q:
+				doWaterThePlantsGame()
 
 		elif event.type == KEYUP:	
 			if event.key == K_UP:
@@ -198,12 +184,8 @@ while running:
 	# Draw all sprites
 	for sprite in allSprites:
 			screen.blit(sprite.surf, sprite.rect)
-
-
-		
-
 	
-	#render everything
+	# render everything
 	pygame.display.flip()
 
 

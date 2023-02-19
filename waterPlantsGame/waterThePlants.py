@@ -7,39 +7,39 @@ import sys
 pygame.init()
 pygame.font.init()
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1000
+HEIGHT = 700
 FPS = 60
 SCORE = 0
 
 
 
-REGADERA_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'facet.png'))
+REGADERA_IMG = pygame.image.load('facet.png')
 REGADERA = pygame.transform.scale(REGADERA_IMG, (200, 200))
 
-REGADERA_AGUA_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'faucetWitWater.png'))
+REGADERA_AGUA_IMG = pygame.image.load('faucetWitWater.png')
 REGADERA_AGUA = pygame.transform.scale(REGADERA_AGUA_IMG, (200, 200))
 """POTS: GIRASOL, POT, POT3 and the half way plant"""
-GIRASOL_IMAGE = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'maceta.png'))
+GIRASOL_IMAGE = pygame.image.load('maceta.png')
 GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (250, 180))
-GIRASOL_GROWN_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'grownGirasol.png'))
+GIRASOL_GROWN_IMG = pygame.image.load('grownGirasol.png')
 GIRASOL_GROWN = pygame.transform.scale(GIRASOL_GROWN_IMG, (200, 200))
 
-POT_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'pot.png'))
+POT_IMG = pygame.image.load('pot.png')
 POT = pygame.transform.scale(POT_IMG, (200, 250))
-POT_FILLED_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'potFill.png'))
+POT_FILLED_IMG = pygame.image.load('potFill.png')
 POT_FILLED = pygame.transform.scale(POT_FILLED_IMG, (200, 250))
 
-HALF_PLANT_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'halfPlant.png'))
+HALF_PLANT_IMG = pygame.image.load('halfPlant.png')
 HALF_PLANT = pygame.transform.scale(HALF_PLANT_IMG, (200, 200))
 
 
-POT3_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'pot3.png'))
+POT3_IMG = pygame.image.load('pot3.png')
 POT3 = pygame.transform.scale(POT3_IMG, (250, 180))
 
 
 """BACKGROUND"""
-BACKGROUND_IMG = pygame.image.load(os.path.join('Assets', 'WaterPlantsAssets', 'backgroundFlowers.jpeg'))
+BACKGROUND_IMG = pygame.image.load('backgroundFlowers.jpeg')
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMG, (1000, 750))
 
 
@@ -65,15 +65,14 @@ def draw_window(regadera, regaderaIMG, girasolIMG, potIMG, pot3IMG):
 
 
 def isPlantCloseEnough(hose, plant):
-    print(hose.x - plant.x)
-    print(hose.y - plant.y)
+
     if (hose.x - plant.x < 250 and hose.y - plant.y < 50 and hose.x - plant.x > 50 and hose.y - plant.y > -50):
         return True
     else:
         return False
 
 
-def main():
+def doWaterThePlantsGame():
     global GIRASOL_BIG
     global POT_GROWTH
     regadera = pygame.Rect(50, 200, 100, 100)
@@ -93,7 +92,7 @@ def main():
         regaderaIMG = REGADERA
 
         if(current_time - time_started > 35000):
-            print("Game Over")
+            #TODO game over
             break
         if (POT_GROWTH < 5):
             potIMG = POT
@@ -103,11 +102,9 @@ def main():
         if (GIRASOL_BIG < 3):
             girasolIMG = GIRASOL
         elif (GIRASOL_BIG < 10 and GIRASOL_BIG > 3):
-            print("In")
             girasolIMG = HALF_PLANT
         else:
             girasolIMG = GIRASOL_GROWN
-        print(GIRASOL_BIG)
         if (keys_pressed[pygame.K_x]):
             regaderaIMG = REGADERA_AGUA
             draw_window(regadera, regaderaIMG, girasolIMG, potIMG, POT3)
@@ -117,11 +114,9 @@ def main():
 
             if (isPlantCloseEnough(regadera, girasol)):
                 GIRASOL_BIG += 1
-                print("Entered")
 
             if (isPlantCloseEnough(regadera, pot)):
                 POT_GROWTH += 1
-                print("Entered")
 
 
         draw_window(regadera, regaderaIMG, girasolIMG, potIMG, POT3)
@@ -138,10 +133,9 @@ def main():
         if (keys_pressed[pygame.K_DOWN]):
             regadera.y += V_reg
 
-    pygame.quit()
 
 
-main()
+#doGame()
 
 """
 IDEA when it gets close to the a letter pops up and you have to click it a lot
