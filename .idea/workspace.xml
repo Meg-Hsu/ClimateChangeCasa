@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b62b1359-53d8-4c27-a97d-bbac6a984216" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/fullFlower1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/bucket2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/bucket3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/fullFlower2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/fullFlower3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/halfPlant2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GardenGame/halfPlant3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GardenGame/facet.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GardenGame/facet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GardenGame/faucetWitWater.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GardenGame/faucetWitWater.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/waterPlantsGame/waterThePlants.py" beforeDir="false" afterPath="$PROJECT_DIR$/waterPlantsGame/waterThePlants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +37,12 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/santiagojaramillo/Documents/Hack/ClimateChangeCasa"
+    "last_opened_file_path": "/Users/santiagojaramillo/Documents/Hack/ClimateChangeCasa/Assets/GardenGame"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Assets/GardenGame" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Assets" />
       <recent name="$PROJECT_DIR$/plantWaterMiniGame/WaterPlantsAssets" />
