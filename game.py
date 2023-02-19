@@ -1,4 +1,6 @@
 import pygame
+import pytmx
+
 from waterPlantsGame.waterThePlants import * 
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
@@ -20,14 +22,15 @@ pygame.init()
 
 # arbitrary values change at discretion
 # SCREEN_WIDTH \ SCREENHEIGHT should equal the golden ratio (~ 1.6)
-SCREEN_WIDTH = 1600
+SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
 
 # can either be 0 or 1. Only two frame animations possible
 currAnimationFrame = 0
 
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
-pygame.display.set_caption("Climate Change Casa")
+pytmx_map = pytmx.load_pygame("floor_map.tmx")
+
 
 # add and schedule events here and handle them in the game loop
 TAKEOUT_TRASH = pygame.USEREVENT + 1
@@ -103,13 +106,13 @@ class Player(pygame.sprite.Sprite):
 					self.rect.bottom = SCREEN_HEIGHT
 
 player = Player()
-t = Wall(100,100,100,100)
 
 collidableSprites = pygame.sprite.Group()
-collidableSprites.add(t)
 allSprites = pygame.sprite.Group()
 allSprites.add(collidableSprites)
 allSprites.add(player)
+
+background = pygame.Surface((25*32, 25*32))
 
 running = True
 while running:
@@ -119,7 +122,6 @@ while running:
 			if event.key == K_ESCAPE:
 					running = False
 			elif event.key == K_UP:
-				#doWaterThePlantsGame()
 				player.isWalking["up"] = True
 			elif event.key == K_DOWN:
 				player.isWalking["down"] = True 
@@ -179,8 +181,29 @@ while running:
 			player.rect.topleft = oldPlayerX, oldPlayerY
 	
 
-	# TODO make this draw the background
-	screen.fill((100,100,100))
+	for event in pygame.event.get():
+		pass
+
+		
+	layer_index = 0
+	for layer in pytmx_map.visible_layers:
+		if isinstance(layer, pytmx.TiledTileLayer):
+			for x in range(0, 25):
+				for y in range(0, 25):
+					image = pytmx_map.get_tile_image(x, y, layer_index)
+					if image != None:
+						background.blit(image, (32*x, 32*y))
+
+		layer_index += 1
+		if isinstance(layer, pytmx.TiledObjectGroup):
+			if layer.name == "thing_objects":
+				for obj in layer:
+					if pygame.Rect(obj.x, obj.y, obj.width, obj.height).colliderect(player.rect) == True:
+						player.rect.topleft = oldPlayerX, oldPlayerY
+						print("YOU HIT THE RED BLOCK!!")
+						break
+
+	screen.blit(background, (0,0))
 
 	# Draw all sprites
 	for sprite in allSprites:
