@@ -48,6 +48,7 @@ def main():
     # when pygame.display.update() is called.
     DISPLAYSURF = pygame.display.set_mode((WINWIDTH, WINHEIGHT))
 
+
     pygame.display.set_caption('Climate Change Casa')
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
 
@@ -75,6 +76,7 @@ def main():
     IMAGESDICT = {'boy': pygame.image.load('char1.png'),
                   'girl': pygame.image.load('char2.png'),
                   'title': pygame.image.load('startscreen.png')}
+
 
     # These dict values are global, and map the character that appears
     # in the level file to the Surface object it represents.
@@ -122,7 +124,8 @@ def startScreen():
     DISPLAYSURF.fill(BGCOLOR)
 
     # Draw the title image to the window:
-    DISPLAYSURF.blit(IMAGESDICT['title'], titleRect)
+    imageDisplay = pygame.transform.scale(IMAGESDICT['title'], (800, 600))
+    DISPLAYSURF.blit(imageDisplay, titleRect)
 
     # Position and draw the text.
     for i in range(len(instructionText)):
