@@ -20,22 +20,22 @@ REGADERA = pygame.transform.scale(REGADERA_IMG, (200, 200))
 REGADERA_AGUA_IMG = pygame.image.load('faucetWitWater.png')
 REGADERA_AGUA = pygame.transform.scale(REGADERA_AGUA_IMG, (200, 200))
 """POTS: GIRASOL, POT, POT3 and the half way plant"""
-GIRASOL_IMAGE = pygame.image.load('maceta.png')
-GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (250, 180))
+GIRASOL_IMAGE = pygame.image.load('bucket1.png')
+GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (200, 200))
 GIRASOL_GROWN_IMG = pygame.image.load('grownGirasol.png')
 GIRASOL_GROWN = pygame.transform.scale(GIRASOL_GROWN_IMG, (200, 200))
 
 POT_IMG = pygame.image.load('pot.png')
-POT = pygame.transform.scale(POT_IMG, (200, 250))
+POT = pygame.transform.scale(POT_IMG, (200, 200))
 POT_FILLED_IMG = pygame.image.load('potFill.png')
-POT_FILLED = pygame.transform.scale(POT_FILLED_IMG, (200, 250))
+POT_FILLED = pygame.transform.scale(POT_FILLED_IMG, (200, 200))
 
-HALF_PLANT_IMG = pygame.image.load('halfPlant.png')
+HALF_PLANT_IMG = pygame.image.load('halfPlant1.png')
 HALF_PLANT = pygame.transform.scale(HALF_PLANT_IMG, (200, 200))
 
 
 POT3_IMG = pygame.image.load('pot3.png')
-POT3 = pygame.transform.scale(POT3_IMG, (250, 180))
+POT3 = pygame.transform.scale(POT3_IMG, (200, 200))
 
 
 """BACKGROUND"""
@@ -101,7 +101,7 @@ def doWaterThePlantsGame():
 
         if (GIRASOL_BIG < 3):
             girasolIMG = GIRASOL
-        elif (GIRASOL_BIG < 10 and GIRASOL_BIG > 3):
+        elif (GIRASOL_BIG < 10 and GIRASOL_BIG >= 3):
             girasolIMG = HALF_PLANT
         else:
             girasolIMG = GIRASOL_GROWN
