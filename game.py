@@ -214,11 +214,23 @@ while running:
 			if(player.isWalking["up"]):
 				player.surf = player.upWalkCycleImgs[currAnimationFrame]
 	
+	
 	oldPlayerX, oldPlayerY = player.rect.topleft
 
 	if player.rect.colliderect(star.rect):
 		pygame.event.post(pygame.event.Event(STAR_EVENT))
 
+
+
+	layer_index = 0
+	for layer in pytmx_map.visible_layers:
+		if isinstance(layer, pytmx.TiledTileLayer):
+			for x in range(0, 25):
+				for y in range(0, 25):
+					image = pytmx_map.get_tile_image(x, y, layer_index)
+					if image != None:
+						background.blit(image, (32*x, 32*y))
+		layer_index += 1
 
 
 	#read current key presses and update player accordingly
