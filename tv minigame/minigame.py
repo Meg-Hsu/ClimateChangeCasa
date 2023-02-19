@@ -60,7 +60,7 @@ while running:
         
         count = 0 
         
-        if images == correct_positions: 
+        if images == correct_positions:  
             # put a "u won!" msg here + exit button
             pygame.quit()
         
