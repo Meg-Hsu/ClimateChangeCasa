@@ -25,7 +25,7 @@ CAM_MOVE_SPEED = 5 # how many pixels per frame the camera moves
 OUTSIDE_DECORATION_PCT = 20
 
 BRIGHTBLUE = (  0, 170, 255)
-WHITE      = (255, 255, 255)
+WHITE      = (0, 0, 0)
 BGCOLOR = BRIGHTBLUE
 TEXTCOLOR = WHITE
 
@@ -73,8 +73,9 @@ def main():
                   'tall tree': pygame.image.load('Tree_Tall.png'),
                   'ugly tree': pygame.image.load('Tree_Ugly.png')} '''
 
-    IMAGESDICT = {'boy': pygame.image.load('char1.png'),
-                  'girl': pygame.image.load('char2.png'),
+    IMAGESDICT = {
+                #'boy': pygame.image.load('Assets/char1.png'),
+                 # 'girl': pygame.image.load('char2.png'),
                   'title': pygame.image.load('startscreen.png')}
 
 
@@ -92,8 +93,8 @@ def main():
     # PLAYERIMAGES is a list of all possible characters the player can be.
     # currentImage is the index of the player's current player image.
     currentImage = 0
-    PLAYERIMAGES = [IMAGESDICT['boy'],
-                    IMAGESDICT['girl']]
+    #PLAYERIMAGES = [IMAGESDICT['boy'],
+      #              IMAGESDICT['girl']]
     
     startScreen()
 
@@ -114,7 +115,7 @@ def startScreen():
     # Unfortunately, Pygame's font & text system only shows one line at
     # a time, so we can't use strings with \n newline characters in them.
     # So we will use a list with each line in it.
-    instructionText = ['TITLE SCREEN! CLIMATE CHANGE CASA',
+    instructionText = [
                        'Push the stars over the marks.',
                        'Arrow keys to move, WASD for camera control, P to change character.',
                        'Backspace to reset level, Esc to quit.',
@@ -125,7 +126,7 @@ def startScreen():
 
     # Draw the title image to the window:
     imageDisplay = pygame.transform.scale(IMAGESDICT['title'], (800, 600))
-    DISPLAYSURF.blit(imageDisplay, titleRect)
+    DISPLAYSURF.blit(imageDisplay, (0,0))
 
     # Position and draw the text.
     for i in range(len(instructionText)):
