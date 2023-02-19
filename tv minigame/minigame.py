@@ -58,7 +58,7 @@ while running:
             if event.type == pygame.KEYDOWN and event.unicode.isnumeric() and len(event.unicode) == 1:
                 num1 = int(event.unicode)
         
-        count = 0
+        count = 0 
         
         if images == correct_positions:
             # put a "u won!" msg here + exit button
