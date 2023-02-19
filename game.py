@@ -32,6 +32,8 @@ pytmx_map = pytmx.load_pygame("floor_map.tmx")
 
 STAR = pygame.transform.scale(pygame.image.load(
     os.path.join('Assets','stars.gif')), (75, 75))
+star_x = 90
+star_y = 300
 
 
 # add and schedule events here and handle them in the game loop
@@ -123,6 +125,7 @@ background = pygame.Surface((47*32, 25*32))
 
 running = True
 while running:
+	#create star rectangle using STAR
 	#waterThePlants.doWaterThePlantsGame()
 	for event in pygame.event.get():
 		if event.type == KEYDOWN:
@@ -164,6 +167,8 @@ while running:
 			if start_event == "plants":
 				doWaterThePlantsGame()	#return value to add points
 				start_event = "trash"
+				star_x = 800
+				star_y = 100
 				#move the star
 			elif start_event == "trash":
 				trash_game()	#return value to add points
@@ -184,6 +189,8 @@ while running:
 				player.surf = player.downWalkCycleImgs[currAnimationFrame]
 			if(player.isWalking["up"]):
 				player.surf = player.upWalkCycleImgs[currAnimationFrame]
+		if (player.rect).colliderect(STAR):
+			pygame.event.post(pygame.event.Event(STAR_EVENT))
 	
 	oldPlayerX, oldPlayerY = player.rect.topleft
 
@@ -225,7 +232,7 @@ while running:
 						break
 
 	screen.blit(background, (0,0))
-	screen.blit(STAR, (330,100))
+	screen.blit(STAR, (star_x,star_y))
 
 	# Draw all sprites
 	for sprite in allSprites:
