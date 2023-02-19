@@ -25,8 +25,6 @@ SCREEN_HEIGHT = 800
 # can either be 0 or 1. Only two frame animations possible
 currAnimationFrame = 0
 
-
-
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 
 # add and schedule events here and handle them in the game loop
@@ -39,9 +37,22 @@ pygame.time.set_timer(TOGGLE_ANIMATION_FRAME, 100)
 
 
 class Player(pygame.sprite.Sprite):
-		isWalking = False;
+		isWalking = {
+			"left": False,
+			"right": False,
+			"down": False,
+			"up": False
+		}		
 		standingImage = pygame.image.load("Assets/char_1.png").convert_alpha()
-		walkCycleImages = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		
+		leftWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		rightWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		downWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		upWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
 		def __init__(self):
 				super(Player, self).__init__()
 				self.surf = self.standingImage
@@ -80,20 +91,29 @@ allSprites.add(player)
 
 running = True
 while running:
-	if player.isWalking: print("walkeees")
 	for event in pygame.event.get():
 		if event.type == KEYDOWN:
 			if event.key == K_ESCAPE:
 					running = False
-			if (event.key == K_UP or event.key == K_DOWN or 
-				event.key == K_LEFT or event.key == K_RIGHT):
-				player.isWalking = True
+			if event.key == K_UP:
+				player.isWalking["up"] = True
+			elif event.key == K_DOWN:
+				player.isWalking["down"] = True 
+			elif event.key == K_LEFT:
+				player.isWalking["left"] = True
+			elif event.key == K_RIGHT:
+				player.isWalking["right"] = True
 
-		elif event.type == KEYUP:			
-			if (event.key == K_UP or event.key == K_DOWN or 
-				event.key == K_LEFT or event.key == K_RIGHT):
+		elif event.type == KEYUP:	
+			if event.key == K_UP:
+				player.isWalking["up"] = False
 				player.surf = player.standingImage
-				player.isWalking = False
+			elif event.key == K_DOWN:
+				player.isWalking["down"] = False 
+			elif event.key == K_LEFT:
+				player.isWalking["left"] = False
+			elif event.key == K_RIGHT:
+				player.isWalking["right"] = False
 
 		elif event.type == QUIT:
 				running = False
@@ -104,8 +124,14 @@ while running:
 
 		elif event.type == TOGGLE_ANIMATION_FRAME:
 			currAnimationFrame = 1 - currAnimationFrame
-			if(player.isWalking):
-				player.surf = player.walkCycleImages[currAnimationFrame]
+			if(player.isWalking["left"]):
+				player.surf = player.leftWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["right"]):
+				player.surf = player.rightWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["down"]):
+				player.surf = player.downWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["up"]):
+				player.surf = player.upWalkCycleImgs[currAnimationFrame]
 		
 
 	#read current key presses and update player accordingly
