@@ -2,6 +2,7 @@ import pygame
 import pytmx
 
 from waterPlantsGame.waterThePlants import * 
+from trash_game import *
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
@@ -29,8 +30,10 @@ currAnimationFrame = 0
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pytmx_map = pytmx.load_pygame("floor_map.tmx")
 
-BLUE_BIN = pygame.transform.scale(pygame.image.load(
-    os.path.join('Assets','recycle.png')), (20, 20))
+STAR = pygame.transform.scale(pygame.image.load(
+    os.path.join('Assets','stars.gif')), (75, 75))
+star_x = 90
+star_y = 300
 
 
 # add and schedule events here and handle them in the game loop
@@ -39,6 +42,9 @@ pygame.time.set_timer(TAKEOUT_TRASH, 10000)
 
 TOGGLE_ANIMATION_FRAME = pygame.USEREVENT + 2
 pygame.time.set_timer(TOGGLE_ANIMATION_FRAME, 100)
+
+STAR_EVENT = pygame.USEREVENT + 3
+start_event = "plants" #change to "trash" or "tv"
 
 
 class Wall(pygame.sprite.Sprite):
@@ -119,6 +125,7 @@ background = pygame.Surface((47*32, 25*32))
 
 running = True
 while running:
+	#create star rectangle using STAR
 	#waterThePlants.doWaterThePlantsGame()
 	for event in pygame.event.get():
 		if event.type == KEYDOWN:
@@ -155,7 +162,23 @@ while running:
 		elif event.type == TAKEOUT_TRASH:
 			# TODO make this actually do something
 			print("take out the darn trash kiddo")
-
+		
+		elif event.type == STAR_EVENT:
+			if start_event == "plants":
+				doWaterThePlantsGame()	#return value to add points
+				start_event = "trash"
+				star_x = 800
+				star_y = 100
+				#move the star
+			elif start_event == "trash":
+				trash_game()	#return value to add points
+				start_event = "tv"
+				#move the star
+			elif start_event == "tv":
+				print("tv program")
+				#call tv program	return value to add points
+				#make star disappear
+				#once done, call end screen
 		elif event.type == TOGGLE_ANIMATION_FRAME:
 			currAnimationFrame = 1 - currAnimationFrame
 			if(player.isWalking["left"]):
@@ -166,8 +189,22 @@ while running:
 				player.surf = player.downWalkCycleImgs[currAnimationFrame]
 			if(player.isWalking["up"]):
 				player.surf = player.upWalkCycleImgs[currAnimationFrame]
+		if (player.rect).colliderect(STAR):
+			pygame.event.post(pygame.event.Event(STAR_EVENT))
+	
 	
 	oldPlayerX, oldPlayerY = player.rect.topleft
+
+
+	layer_index = 0
+	for layer in pytmx_map.visible_layers:
+		if isinstance(layer, pytmx.TiledTileLayer):
+			for x in range(0, 25):
+				for y in range(0, 25):
+					image = pytmx_map.get_tile_image(x, y, layer_index)
+					if image != None:
+						background.blit(image, (32*x, 32*y))
+		layer_index += 1
 
 
 	#read current key presses and update player accordingly
@@ -207,6 +244,7 @@ while running:
 						break
 
 	screen.blit(background, (0,0))
+	screen.blit(STAR, (star_x,star_y))
 
 	# Draw all sprites
 	for sprite in allSprites:
