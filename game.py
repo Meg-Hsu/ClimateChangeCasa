@@ -20,10 +20,8 @@ from pygame.locals import (
 pygame.init()
 
 
-# arbitrary values change at discretion
-# SCREEN_WIDTH \ SCREENHEIGHT should equal the golden ratio (~ 1.6)
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 800
+SCREEN_WIDTH = 47*32
+SCREEN_HEIGHT = 26*32
 
 # can either be 0 or 1. Only two frame animations possible
 currAnimationFrame = 0
@@ -58,7 +56,7 @@ class Player(pygame.sprite.Sprite):
 			"up": False
 		}
 		isColliding = False
-		speed = 2
+		speed = 4
 		# can either be 1 or 2
 		isFemme = 1
 		standingImages = {
@@ -75,11 +73,12 @@ class Player(pygame.sprite.Sprite):
 		upWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
 			pygame.image.load("Assets/char_1_walking.png" ).convert_alpha()]
 
-		def __init__(self):
+		def __init__(self, x, y):
 				super(Player, self).__init__()
 				self.surf = self.standingImages[self.isFemme]
 				self.rect = self.surf.get_rect()
-
+				self.x = x
+				self.y = y
 		# Move the sprite based on user keypresses
 		def update(self, pressed_keys):	
 			velocityX = 0
@@ -105,14 +104,14 @@ class Player(pygame.sprite.Sprite):
 			if self.rect.bottom >= SCREEN_HEIGHT:
 					self.rect.bottom = SCREEN_HEIGHT
 
-player = Player()
+player = Player(42,42)
 
 collidableSprites = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
 allSprites.add(collidableSprites)
 allSprites.add(player)
 
-background = pygame.Surface((25*32, 25*32))
+background = pygame.Surface((47*32, 25*32))
 
 running = True
 while running:
@@ -188,7 +187,7 @@ while running:
 	layer_index = 0
 	for layer in pytmx_map.visible_layers:
 		if isinstance(layer, pytmx.TiledTileLayer):
-			for x in range(0, 25):
+			for x in range(0, 47):
 				for y in range(0, 25):
 					image = pytmx_map.get_tile_image(x, y, layer_index)
 					if image != None:
