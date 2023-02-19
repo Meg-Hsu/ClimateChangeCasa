@@ -14,32 +14,32 @@ SCORE = 0
 
 
 
-REGADERA_IMG = pygame.image.load('facet.png')
+REGADERA_IMG = pygame.image.load('Assets/GardenGame/facet.png')
 REGADERA = pygame.transform.scale(REGADERA_IMG, (200, 200))
 
-REGADERA_AGUA_IMG = pygame.image.load('faucetWitWater.png')
+REGADERA_AGUA_IMG = pygame.image.load('Assets/GardenGame/faucetWitWater.png')
 REGADERA_AGUA = pygame.transform.scale(REGADERA_AGUA_IMG, (200, 200))
 """POTS: GIRASOL, POT, POT3 and the half way plant"""
-GIRASOL_IMAGE = pygame.image.load('bucket1.png')
+GIRASOL_IMAGE = pygame.image.load('Assets/GardenGame/bucket1.png')
 GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (200, 200))
-GIRASOL_GROWN_IMG = pygame.image.load('fullFlower1.png')
+GIRASOL_GROWN_IMG = pygame.image.load('Assets/GardenGame/fullFlower1.png')
 GIRASOL_GROWN = pygame.transform.scale(GIRASOL_GROWN_IMG, (200, 200))
 
-POT_IMG = pygame.image.load('pot.png')
+POT_IMG = pygame.image.load('Assets/GardenGame/pot.png')
 POT = pygame.transform.scale(POT_IMG, (200, 200))
-POT_FILLED_IMG = pygame.image.load('potFill.png')
+POT_FILLED_IMG = pygame.image.load('Assets/GardenGame/potFill.png')
 POT_FILLED = pygame.transform.scale(POT_FILLED_IMG, (200, 200))
 
-HALF_PLANT_IMG = pygame.image.load('halfPlant1.png')
+HALF_PLANT_IMG = pygame.image.load('Assets/GardenGame/halfPlant1.png')
 HALF_PLANT = pygame.transform.scale(HALF_PLANT_IMG, (200, 200))
 
 
-POT3_IMG = pygame.image.load('pot3.png')
+POT3_IMG = pygame.image.load('Assets/GardenGame/pot3.png')
 POT3 = pygame.transform.scale(POT3_IMG, (200, 200))
 
 
 """BACKGROUND"""
-BACKGROUND_IMG = pygame.image.load('backyardBackground.png')
+BACKGROUND_IMG = pygame.image.load('Assets/GardenGame/backyardBackground.png')
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMG, (1600, 800))
 
 
