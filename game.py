@@ -29,6 +29,9 @@ currAnimationFrame = 0
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pytmx_map = pytmx.load_pygame("floor_map.tmx")
 
+BLUE_BIN = pygame.transform.scale(pygame.image.load(
+    os.path.join('Assets','recycle.png')), (20, 20))
+
 
 # add and schedule events here and handle them in the game loop
 TAKEOUT_TRASH = pygame.USEREVENT + 1
