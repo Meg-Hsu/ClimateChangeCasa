@@ -20,11 +20,11 @@ INSTRUCTION_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
 pygame.display.set_caption("Image Sorting")
 
 # Load the five images
-image1 = pygame.image.load("tvMinigame/warm_1.png")
-image2 = pygame.image.load("tvMinigame/warm_2.png")
-image3 = pygame.image.load("tvMinigame/warm_3.png")
-image4 = pygame.image.load("tvMinigame/warm_4.png")
-image5 = pygame.image.load("tvMinigame/warm_5.png")
+image1 = pygame.image.load("tvMiniGame/warm_1.png")
+image2 = pygame.image.load("tvMiniGame/warm_2.png")
+image3 = pygame.image.load("tvMiniGame/warm_3.png")
+image4 = pygame.image.load("tvMiniGame/warm_4.png")
+image5 = pygame.image.load("tvMiniGame/warm_5.png")
 
 # Create a list of the images
 
