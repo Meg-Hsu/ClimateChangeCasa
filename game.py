@@ -192,7 +192,19 @@ while running:
 		if (player.rect).colliderect(STAR):
 			pygame.event.post(pygame.event.Event(STAR_EVENT))
 	
+	
 	oldPlayerX, oldPlayerY = player.rect.topleft
+
+
+	layer_index = 0
+	for layer in pytmx_map.visible_layers:
+		if isinstance(layer, pytmx.TiledTileLayer):
+			for x in range(0, 25):
+				for y in range(0, 25):
+					image = pytmx_map.get_tile_image(x, y, layer_index)
+					if image != None:
+						background.blit(image, (32*x, 32*y))
+		layer_index += 1
 
 
 	#read current key presses and update player accordingly
