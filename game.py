@@ -1,9 +1,9 @@
 import pygame
 import pytmx
 
-from waterPlantsGame.waterThePlants import * 
+from waterThePlants import * 
 from trash_game import *
-#from tvMinigame.minigame import *
+from minigame import *
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
@@ -186,8 +186,8 @@ while running:
 				win = doWaterThePlantsGame()	#return value to add points
 				time.sleep(.2)
 				start_event = "trash"
-				star_x = 800
-				star_y = 650
+				star_x = 200
+				star_y = 500
 				star.update(star_x, star_y)
 				#screen.blit(sprite.surf, (star_x, star_y))
 				#move the star
@@ -200,7 +200,7 @@ while running:
 				star.update(star_x, star_y)
 				#move the star
 			elif start_event == "tv":
-				print("tv program")
+				win = puzzle()
 				#call tv program	return value to add points
 				#once done, call end screen
 		elif event.type == TOGGLE_ANIMATION_FRAME:
