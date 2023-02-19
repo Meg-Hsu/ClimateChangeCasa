@@ -47,8 +47,8 @@ class Player(pygame.sprite.Sprite):
 		
 		leftWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
 			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
-		rightWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
-			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		rightWalkCycleImgs = [pygame.transform.flip(pygame.image.load("Assets/char_1_standing.png").convert_alpha(), True, False), 
+			pygame.transform.flip(pygame.image.load("Assets/char_1_walking.png").convert_alpha(), True, False)]
 		downWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
 			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
 		upWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
@@ -110,10 +110,13 @@ while running:
 				player.surf = player.standingImage
 			elif event.key == K_DOWN:
 				player.isWalking["down"] = False 
+				player.surf = player.standingImage
 			elif event.key == K_LEFT:
 				player.isWalking["left"] = False
+				player.surf = player.standingImage
 			elif event.key == K_RIGHT:
 				player.isWalking["right"] = False
+				player.surf = player.standingImage
 
 		elif event.type == QUIT:
 				running = False
