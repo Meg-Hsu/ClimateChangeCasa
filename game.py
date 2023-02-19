@@ -10,34 +10,52 @@ from pygame.locals import (
 		K_RIGHT,
 		K_ESCAPE,
 		KEYDOWN,
+		KEYUP,
 		QUIT,
 )
 
 pygame.init()
 
 
-# add and schedule events here and handle them in the game loop
-TAKEOUT_TRASH = pygame.USEREVENT + 1
-pygame.time.set_timer(TAKEOUT_TRASH, 10000)
-
-
-# arbitrary values change at your own discretion
+# arbitrary values change at discretion
 # SCREEN_WIDTH \ SCREENHEIGHT should equal the golden ratio (~ 1.6)
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 800
 
+# can either be 0 or 1. Only two frame animations possible
+currAnimationFrame = 0
+
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+
+# add and schedule events here and handle them in the game loop
+TAKEOUT_TRASH = pygame.USEREVENT + 1
+pygame.time.set_timer(TAKEOUT_TRASH, 10000)
+
+TOGGLE_ANIMATION_FRAME = pygame.USEREVENT + 2
+pygame.time.set_timer(TOGGLE_ANIMATION_FRAME, 100)
+
 
 
 class Player(pygame.sprite.Sprite):
+		isWalking = {
+			"left": False,
+			"right": False,
+			"down": False,
+			"up": False
+		}		
+		standingImage = pygame.image.load("Assets/char_1.png").convert_alpha()
+		
+		leftWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		rightWalkCycleImgs = [pygame.transform.flip(pygame.image.load("Assets/char_1_standing.png").convert_alpha(), True, False), 
+			pygame.transform.flip(pygame.image.load("Assets/char_1_walking.png").convert_alpha(), True, False)]
+		downWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+		upWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
+			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
 		def __init__(self):
 				super(Player, self).__init__()
-				# TODO: change two lines down here to this dead code with "our.png" replaced
-				# to draw as sprite
-				# self.surf = pygame.image.load("our.png").convert()
-				# self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-				self.surf = pygame.Surface((75, 25))
-				self.surf.fill((255, 255, 255))
+				self.surf = self.standingImage
 				self.rect = self.surf.get_rect()
 
 		# Move the sprite based on user keypresses
@@ -74,17 +92,49 @@ allSprites.add(player)
 running = True
 while running:
 	for event in pygame.event.get():
-		# Did the user hit a key?s
 		if event.type == KEYDOWN:
-			# Was it the Escape key? If so, stop the loop.
 			if event.key == K_ESCAPE:
 					running = False
+			if event.key == K_UP:
+				player.isWalking["up"] = True
+			elif event.key == K_DOWN:
+				player.isWalking["down"] = True 
+			elif event.key == K_LEFT:
+				player.isWalking["left"] = True
+			elif event.key == K_RIGHT:
+				player.isWalking["right"] = True
+
+		elif event.type == KEYUP:	
+			if event.key == K_UP:
+				player.isWalking["up"] = False
+				player.surf = player.standingImage
+			elif event.key == K_DOWN:
+				player.isWalking["down"] = False 
+				player.surf = player.standingImage
+			elif event.key == K_LEFT:
+				player.isWalking["left"] = False
+				player.surf = player.standingImage
+			elif event.key == K_RIGHT:
+				player.isWalking["right"] = False
+				player.surf = player.standingImage
+
 		elif event.type == QUIT:
 				running = False
 
 		elif event.type == TAKEOUT_TRASH:
 			# TODO make this actually do something
 			print("take out the darn trash kiddo")
+
+		elif event.type == TOGGLE_ANIMATION_FRAME:
+			currAnimationFrame = 1 - currAnimationFrame
+			if(player.isWalking["left"]):
+				player.surf = player.leftWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["right"]):
+				player.surf = player.rightWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["down"]):
+				player.surf = player.downWalkCycleImgs[currAnimationFrame]
+			if(player.isWalking["up"]):
+				player.surf = player.upWalkCycleImgs[currAnimationFrame]
 		
 
 	#read current key presses and update player accordingly
@@ -93,7 +143,7 @@ while running:
 	collidableSprites.update()
 
 	# TODO make this draw the background
-	screen.fill((0,0,0))
+	screen.fill((100,100,100))
 
 	# Draw all sprites
 	for entity in allSprites:
