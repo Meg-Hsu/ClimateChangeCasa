@@ -15,6 +15,7 @@ SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 INSTRUCTION_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
+END_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
 
 # Set the caption of the window
 pygame.display.set_caption("Image Sorting")
@@ -28,7 +29,21 @@ image5 = pygame.image.load("tvMiniGame/warm_5.png")
 
 # Create a list of the images
 
+def end_window(winner):
+    screen.blit(screen, (0, 0))
+    if winner:
+        win_text = END_FONT.render(
+        "you won! thank you for playing :)", 1, (0,0,0))
+        #print you won!
+    else:
+        win_text = END_FONT.render(
+        "you lost :( try again to help the environment some more!", 1, (0,0,0))
+    screen.blit(win_text, (SCREEN_WIDTH//2 - win_text.get_width()//2, SCREEN_HEIGHT//2 - win_text.get_height()//2))
+    pygame.display.update()
+    pygame.time.delay(3000)
+
 def puzzle():
+    gameresult = False
 
     images = [image1, image2, image3, image4, image5]
 
@@ -75,8 +90,9 @@ def puzzle():
             count = 0 
             
             if images == correct_positions: 
-                print("you won")
-                pygame.quit()
+                print("you won! thanks for playing :)")
+                gameresult = True
+                return gameresult
             
         # Clear the screen
         screen.fill(WHITE)
@@ -97,7 +113,7 @@ def puzzle():
 
 def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    puzzle()
+    winner = puzzle()
     pygame.display.flip()
 
 if __name__ == "__main__":
