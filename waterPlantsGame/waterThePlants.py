@@ -22,20 +22,26 @@ REGADERA_AGUA = pygame.transform.scale(REGADERA_AGUA_IMG, (200, 200))
 """POTS: GIRASOL, POT, POT3 and the half way plant"""
 GIRASOL_IMAGE = pygame.image.load('Assets/GardenGame/bucket1.png')
 GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (200, 200))
+HALF_PLANT_IMG = pygame.image.load('Assets/GardenGame/halfPlant1.png')
+HALF_PLANT = pygame.transform.scale(HALF_PLANT_IMG, (200, 200))
 GIRASOL_GROWN_IMG = pygame.image.load('Assets/GardenGame/fullFlower1.png')
 GIRASOL_GROWN = pygame.transform.scale(GIRASOL_GROWN_IMG, (200, 200))
 
-POT_IMG = pygame.image.load('Assets/GardenGame/pot.png')
+POT_IMG = pygame.image.load('Assets/GardenGame/bucket3.png')
 POT = pygame.transform.scale(POT_IMG, (200, 200))
+
 POT_FILLED_IMG = pygame.image.load('Assets/GardenGame/potFill.png')
 POT_FILLED = pygame.transform.scale(POT_FILLED_IMG, (200, 200))
 
-HALF_PLANT_IMG = pygame.image.load('Assets/GardenGame/halfPlant1.png')
-HALF_PLANT = pygame.transform.scale(HALF_PLANT_IMG, (200, 200))
 
 
-POT3_IMG = pygame.image.load('Assets/GardenGame/pot3.png')
+
+POT3_IMG = pygame.image.load('Assets/GardenGame/bucket2.png')
 POT3 = pygame.transform.scale(POT3_IMG, (200, 200))
+POT3_HALF_IMG = pygame.image.load('Assets/GardenGame/halfPlant2.png')
+POT3_HALF = pygame.transform.scale(POT3_HALF_IMG, (200, 200))
+POT3_FILLED_IMG = pygame.image.load('Assets/GardenGame/fullFlower2.png')
+POT3_FILLED = pygame.transform.scale(POT3_FILLED_IMG, (200,200))
 
 
 """BACKGROUND"""
@@ -48,7 +54,8 @@ pygame.display.set_caption("Water the plants")
 
 GIRASOL_BIG = 0
 POT_GROWTH = 0
-V_reg = 5
+POT3_GROWTH = 0
+V_reg = 15
 WHITE = (255, 255, 255)
 
 
@@ -58,8 +65,8 @@ def draw_window(regadera, regaderaIMG, girasolIMG, potIMG, pot3IMG):
     WINDOW.fill(WHITE)
     WINDOW.blit(BACKGROUND, (0, 0))
     WINDOW.blit(girasolIMG, (50, 100))
-    WINDOW.blit(potIMG, (350, 100))
-    WINDOW.blit(pot3IMG, (700, 100))
+    WINDOW.blit(potIMG, (570, 100))
+    WINDOW.blit(pot3IMG, (1300, 100))
     WINDOW.blit(regaderaIMG, (regadera.x, regadera.y))
     pygame.display.update()
 
@@ -75,13 +82,18 @@ def isPlantCloseEnough(hose, plant):
 def doWaterThePlantsGame():
     global GIRASOL_BIG
     global POT_GROWTH
+    global POT3_GROWTH
+
     regadera = pygame.Rect(50, 200, 100, 100)
     girasol = pygame.Rect(50, 100, 200, 200)
 
-    pot = pygame.Rect(350, 100, 200, 250)
+    pot = pygame.Rect(570, 100, 200, 200)
+
+    pot3 = pygame.Rect(1300, 100, 200, 200)
     clockAnimationWater = pygame.time.Clock()
     clock = pygame.time.Clock()
     run = True
+    left = False
 
     time_started = pygame.time.get_ticks()
     while run:
@@ -105,12 +117,20 @@ def doWaterThePlantsGame():
             girasolIMG = HALF_PLANT
         else:
             girasolIMG = GIRASOL_GROWN
+
+        if (POT3_GROWTH < 7):
+            pot3IMG = POT3
+        elif (POT_GROWTH < 15 and POT_GROWTH >= 7):
+            pot3IMG = POT3_HALF
+        else:
+            pot3IMG = POT3_FILLED
+
         if (keys_pressed[pygame.K_x]):
             regaderaIMG = REGADERA_AGUA
-            draw_window(regadera, regaderaIMG, girasolIMG, potIMG, POT3)
+            draw_window(regadera, regaderaIMG, girasolIMG, potIMG, pot3IMG)
             clockAnimationWater.tick(3)
             regaderaIMG = REGADERA
-            draw_window(regadera, regaderaIMG, girasolIMG, potIMG, POT3)
+            draw_window(regadera, regaderaIMG, girasolIMG, potIMG, pot3IMG)
 
             if (isPlantCloseEnough(regadera, girasol)):
                 GIRASOL_BIG += 1
@@ -118,8 +138,10 @@ def doWaterThePlantsGame():
             if (isPlantCloseEnough(regadera, pot)):
                 POT_GROWTH += 1
 
+            if (isPlantCloseEnough(regadera, pot3)):
+                POT3_GROWTH += 1
 
-        draw_window(regadera, regaderaIMG, girasolIMG, potIMG, POT3)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -132,7 +154,7 @@ def doWaterThePlantsGame():
             regadera.y -= V_reg
         if (keys_pressed[pygame.K_DOWN]):
             regadera.y += V_reg
-
+        draw_window(regadera, regaderaIMG, girasolIMG, potIMG, pot3IMG)
 
 
 #doGame()
