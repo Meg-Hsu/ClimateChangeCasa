@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 800
 BIN_WIDTH, BIN_HEIGHT = 150, 200 #maybe change
 WINDOW = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 BACKG = pygame.transform.scale(pygame.image.load(
-    os.path.join('Assets', 'kitchen_background.png')), (SCREEN_WIDTH, SCREEN_HEIGHT))
+    os.path.join('Assets', 'TrashGame', 'kitchen1.jpeg')), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 STRIKE_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
 USE_FONT = pygame.font.Font("Assets/pixel_font.ttf", 50)
@@ -82,23 +82,23 @@ def draw_window(item, blue_bin, green_bin, grey_bin):
     WINDOW.blit(GREEN_BIN, (green_bin.x, green_bin.y))
     WINDOW.blit(pygame.transform.scale(pygame.image.load(item), (75, 100)), (600, 500))
     strikes_text = STRIKE_FONT.render(
-        "Strikes: " + str(strikes), 1, (0,0,0))
+        "Strikes: " + str(strikes), 1, (255,255,255))
     WINDOW.blit(strikes_text, (SCREEN_WIDTH - strikes_text.get_width() - 10, 10))
     instructions = STRIKE_FONT.render(
-        "Press the left arrow for trash, up for compost, right for recycling", 1, (0,0,0))
+        "Press the left arrow for trash, up for compost, right for recycling", 1, (255,255,255))
     WINDOW.blit(instructions, (SCREEN_WIDTH//2 - instructions.get_width()//2, SCREEN_HEIGHT - 30 - instructions.get_height()))
 
     pygame.display.update()
 
 def end_window(winner):
-    WINDOW.blit(BACKG, (0, 0))
+    WINDOW.blit(BACKG, (255,255,255))
     if winner:
         win_text = USE_FONT.render(
-        "YOU WON!", 1, (0,0,0))
+        "YOU WON!", 1, (255,255,255))
         #print you won!
     else:
         win_text = USE_FONT.render(
-        "YOU LOST :(", 1, (0,0,0))
+        "YOU LOST :(", 1, (255,255,255))
     WINDOW.blit(win_text, (SCREEN_WIDTH//2 - win_text.get_width()//2, SCREEN_HEIGHT//2 - win_text.get_height()//2))
     pygame.display.update()
     pygame.time.delay(3000)
