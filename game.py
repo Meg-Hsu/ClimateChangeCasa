@@ -1,7 +1,10 @@
 import pygame
 import pytmx
-
+from tvMinigame.minigame import *
+from trash_game import *
 from waterPlantsGame.waterThePlants import * 
+
+import time
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
@@ -21,7 +24,7 @@ pygame.init()
 
 
 SCREEN_WIDTH = 47*32
-SCREEN_HEIGHT = 26*32
+SCREEN_HEIGHT = 25*32
 
 # can either be 0 or 1. Only two frame animations possible
 currAnimationFrame = 0
@@ -38,11 +41,11 @@ TOGGLE_ANIMATION_FRAME = pygame.USEREVENT + 2
 pygame.time.set_timer(TOGGLE_ANIMATION_FRAME, 100)
 
 
-class Wall(pygame.sprite.Sprite):
-	def __init__(self, width, height, x, y):
-		super(Wall, self).__init__()
-		self.surf = pygame.Surface((width, height))
-		self.surf.fill((255, 255, 255))
+class Star(pygame.sprite.Sprite):
+	def __init__(self, x, y):
+		super(Star, self).__init__()
+		self.surf = pygame.transform.scale(pygame.image.load("star.png").convert(), (50,50))
+		self.surf.set_colorkey((247, 247, 247), RLEACCEL)
 		self.rect = self.surf.get_rect()
 		self.rect.x = x
 		self.rect.y = y
@@ -56,7 +59,7 @@ class Player(pygame.sprite.Sprite):
 			"up": False
 		}
 		isColliding = False
-		speed = 4
+		speed = 12
 		# can either be 1 or 2
 		isFemme = 1
 		standingImages = {
@@ -105,14 +108,23 @@ class Player(pygame.sprite.Sprite):
 					self.rect.bottom = SCREEN_HEIGHT
 
 player = Player(42,42)
-w = Wall(100,100,100,100)
+plantStar = Star(100,300)
+bookStar = Star(350, 350)
+trashStar = Star(600, 150)
 
 collidableSprites = pygame.sprite.Group()
+collidableSprites.add(plantStar)
+collidableSprites.add(bookStar)
+collidableSprites.add(trashStar)
 allSprites = pygame.sprite.Group()
 allSprites.add(collidableSprites)
 allSprites.add(player)
 
 background = pygame.Surface((47*32, 25*32))
+startScreen = pygame.transform.scale(pygame.image.load("startscreen.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
+screen.blit(startScreen, (0, 0))
+pygame.display.flip()
+pygame.time.delay(3000)
 
 running = True
 while running:
@@ -166,7 +178,6 @@ while running:
 	
 	oldPlayerX, oldPlayerY = player.rect.topleft
 
-
 	#read current key presses and update player accordingly
 	pressed_keys = pygame.key.get_pressed()
 	player.update(pressed_keys)
@@ -176,8 +187,14 @@ while running:
 	# Do collision detection ¡IMPORTANT! this must be before updating the player 
 	# if pygame.sprite.spritecollideany(player, collidableSprites):		
 	# 	player.rect.topleft = oldPlayerX, oldPlayerY
-	for sprites in collidableSprites:
-		if player.rect.colliderect(sprites):
+	for sprite in collidableSprites:
+		if player.rect.colliderect(sprite):
+			if sprite == plantStar:
+				doWaterThePlantsGame()
+			if sprite == bookStar:
+				puzzle()
+			if sprite == trashStar:
+				trash_game()
 			player.rect.topleft = oldPlayerX, oldPlayerY
 	
 
