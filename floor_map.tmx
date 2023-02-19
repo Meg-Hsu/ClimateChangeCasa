@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="47" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="200">
+ <editorsettings>
+  <export target="floor_map2.tmx" format="tmx"/>
+ </editorsettings>
  <tileset firstgid="1" source="house.tsx"/>
  <layer id="2" name="main" width="47" height="26">
   <data encoding="base64" compression="gzip">
