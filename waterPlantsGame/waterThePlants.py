@@ -7,8 +7,8 @@ import sys
 pygame.init()
 pygame.font.init()
 
-WIDTH = 1000
-HEIGHT = 700
+WIDTH = 1600
+HEIGHT = 800
 FPS = 60
 SCORE = 0
 
@@ -22,7 +22,7 @@ REGADERA_AGUA = pygame.transform.scale(REGADERA_AGUA_IMG, (200, 200))
 """POTS: GIRASOL, POT, POT3 and the half way plant"""
 GIRASOL_IMAGE = pygame.image.load('bucket1.png')
 GIRASOL = pygame.transform.scale(GIRASOL_IMAGE, (200, 200))
-GIRASOL_GROWN_IMG = pygame.image.load('grownGirasol.png')
+GIRASOL_GROWN_IMG = pygame.image.load('fullFlower1.png')
 GIRASOL_GROWN = pygame.transform.scale(GIRASOL_GROWN_IMG, (200, 200))
 
 POT_IMG = pygame.image.load('pot.png')
@@ -39,8 +39,8 @@ POT3 = pygame.transform.scale(POT3_IMG, (200, 200))
 
 
 """BACKGROUND"""
-BACKGROUND_IMG = pygame.image.load('backgroundFlowers.jpeg')
-BACKGROUND = pygame.transform.scale(BACKGROUND_IMG, (1000, 750))
+BACKGROUND_IMG = pygame.image.load('backyardBackground.png')
+BACKGROUND = pygame.transform.scale(BACKGROUND_IMG, (1600, 800))
 
 
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
