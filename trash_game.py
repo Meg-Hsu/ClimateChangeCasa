@@ -1,4 +1,5 @@
 import os
+import random
 import time
 import pygame
 
@@ -23,8 +24,9 @@ RECYCLE_KEY = pygame.K_RIGHT
 
 def trash_game():
     win_game = False
-    strikes = 0
     playing = True
+    global strikes
+    strikes = 0
     index = 0
     grey_bin = pygame.Rect(150, 100, BIN_WIDTH, BIN_HEIGHT)
     green_bin = pygame.Rect(550, 100, BIN_WIDTH, BIN_HEIGHT)
@@ -32,8 +34,10 @@ def trash_game():
     to_sort = [('Assets/TrashGame/Compost1.png', COMPOST_KEY), ('Assets/TrashGame/Compost2.png', COMPOST_KEY), ('Assets/TrashGame/Compost3.png', COMPOST_KEY),
                ('Assets/TrashGame/Compost4.png', COMPOST_KEY), ('Assets/TrashGame/Recycle1.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle2.png', RECYCLE_KEY),
                ('Assets/TrashGame/Recycle3.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle4.png', RECYCLE_KEY), ('Assets/TrashGame/Recycle5.png', RECYCLE_KEY),
-               ('Assets/TrashGame/Recycle6.png', RECYCLE_KEY), ('Assets/TrashGame/Trash1.png', TRASH_KEY), ('Assets/TrashGame/Trash1.png', TRASH_KEY)]
+               ('Assets/TrashGame/Recycle6.png', RECYCLE_KEY), ('Assets/TrashGame/Trash1.png', TRASH_KEY), ('Assets/TrashGame/Trash2.png', TRASH_KEY)]
     
+    random.shuffle(to_sort)
+
     clock = pygame.time.Clock()
     while playing:
         clock.tick(60)
@@ -53,8 +57,11 @@ def trash_game():
 
                 
 def check_response(keys_pressed, corr_key):
+    global strikes
     if keys_pressed[corr_key]:
-        return 0     
+        return 0
+    if keys_pressed[TRASH_KEY] or keys_pressed[COMPOST_KEY] or keys_pressed[RECYCLE_KEY]:
+        strikes += 1
     return -1         
      
 
@@ -71,8 +78,6 @@ def main():
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     trash_game()
     pygame.display.flip()
-
-    main()
 
 if __name__ == "__main__":
     main()
