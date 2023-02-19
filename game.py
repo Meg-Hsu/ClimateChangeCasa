@@ -1,4 +1,6 @@
 import pygame
+import pytmx
+from pytmx.util_pygame import load_pygame
 from waterPlantsGame.waterThePlants import * 
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
@@ -20,13 +22,15 @@ pygame.init()
 
 # arbitrary values change at discretion
 # SCREEN_WIDTH \ SCREENHEIGHT should equal the golden ratio (~ 1.6)
-SCREEN_WIDTH = 1600
+SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
 
 # can either be 0 or 1. Only two frame animations possible
 currAnimationFrame = 0
 
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+pytmx_map = load_pygame("floor_map.tmx")
+
 
 # add and schedule events here and handle them in the game loop
 TAKEOUT_TRASH = pygame.USEREVENT + 1
@@ -118,7 +122,6 @@ while running:
 			if event.key == K_ESCAPE:
 					running = False
 			elif event.key == K_UP:
-				#doWaterThePlantsGame()
 				player.isWalking["up"] = True
 			elif event.key == K_DOWN:
 				player.isWalking["down"] = True 

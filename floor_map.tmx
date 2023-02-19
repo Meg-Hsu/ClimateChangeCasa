@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="47" height="26" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="200">
- <tileset firstgid="1" source="house.tsx"/>
+ <tileset firstgid="1" source="house.tmx"/>
  <layer id="2" name="main" width="47" height="26">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAACu2X3W7CMAxGPYluJddsGVzxm5E3H+wll0q1VIxbO1aidtIuzkURTY5M8tk0LwAN4RMAdkrehWfLGpQNPDuOEdN3j4Q3An4eEocBgXlXIpI1OHLcqesY3brfiXvip39+zSQIe7hK7i1xXxvcD3/YvRX28JXcPXH3Bncn7BEruUfiHg3uvqD7B+jz7VzAXdrvnFl3bb6FAu5SRtY6MzQjaQ27vtKd57bnxNT1mlhNUMud5gxXw2bAWG2X4t5k0s7kTjPS4u5mcucyMtfdF3TPmSMxI2+9ezC4fyn2qJGRWHd0p3dTw1Q+WjJy6jccgvmO7muDuzTP1HLHfEd3Z3AvPc9o3R083lV6V7A3IVxv2i7EnetNtA9z53kOdy7ftfk6dCvlLmUWnUWW5L6HvP/KS3LHGeWm5P7vXsSdyzEtlwrvXEfcfwHfw4JzGBMAAA==
