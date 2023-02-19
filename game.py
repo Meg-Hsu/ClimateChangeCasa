@@ -42,20 +42,27 @@ class Player(pygame.sprite.Sprite):
 			"right": False,
 			"down": False,
 			"up": False
-		}		
-		standingImage = pygame.image.load("Assets/char_1.png").convert_alpha()
+		}
+
+		# can either be 1 or 2
+		isFemme = 2;
+		standingImages = {
+			1: pygame.image.load("Assets/char_1.png").convert_alpha(), 
+			2: pygame.image.load("Assets/char_2.png").convert_alpha()
+		}
 		
 		leftWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
 			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
 		rightWalkCycleImgs = [pygame.transform.flip(pygame.image.load("Assets/char_1_standing.png").convert_alpha(), True, False), 
 			pygame.transform.flip(pygame.image.load("Assets/char_1_walking.png").convert_alpha(), True, False)]
 		downWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
-			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+			pygame.image.load("Assets/char_1_walking.png" ).convert_alpha()]
 		upWalkCycleImgs = [pygame.image.load("Assets/char_1_standing.png").convert_alpha(), 
-			pygame.image.load("Assets/char_1_walking.png").convert_alpha()]
+			pygame.image.load("Assets/char_1_walking.png" ).convert_alpha()]
+
 		def __init__(self):
 				super(Player, self).__init__()
-				self.surf = self.standingImage
+				self.surf = self.standingImages[self.isFemme]
 				self.rect = self.surf.get_rect()
 
 		# Move the sprite based on user keypresses
@@ -107,16 +114,16 @@ while running:
 		elif event.type == KEYUP:	
 			if event.key == K_UP:
 				player.isWalking["up"] = False
-				player.surf = player.standingImage
+				player.surf = player.standingImages[player.isFemme]
 			elif event.key == K_DOWN:
 				player.isWalking["down"] = False 
-				player.surf = player.standingImage
+				player.surf = player.standingImages[player.isFemme]
 			elif event.key == K_LEFT:
 				player.isWalking["left"] = False
-				player.surf = player.standingImage
+				player.surf = player.standingImages[player.isFemme]
 			elif event.key == K_RIGHT:
 				player.isWalking["right"] = False
-				player.surf = player.standingImage
+				player.surf =player.standingImages[player.isFemme]
 
 		elif event.type == QUIT:
 				running = False
