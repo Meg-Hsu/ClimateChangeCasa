@@ -105,6 +105,7 @@ class Player(pygame.sprite.Sprite):
 					self.rect.bottom = SCREEN_HEIGHT
 
 player = Player(42,42)
+w = Wall(100,100,100,100)
 
 collidableSprites = pygame.sprite.Group()
 allSprites = pygame.sprite.Group()
