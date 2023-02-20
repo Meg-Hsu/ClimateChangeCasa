@@ -1,7 +1,7 @@
 import pygame
 import random
 pygame.font.init()
-pygame.font.Font("Assets/pixel_font.ttf", 5)
+pygame.font.Font("../Assets/pixel_font.ttf", 5)
 
 # rgb colors
 BLACK = (0, 0, 0)
@@ -14,18 +14,18 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-INSTRUCTION_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
-END_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
+INSTRUCTION_FONT = pygame.font.Font("../Assets/pixel_font.ttf", 15)
+END_FONT = pygame.font.Font("../Assets/pixel_font.ttf", 20)
 
 # Set the caption of the window
 pygame.display.set_caption("Image Sorting")
 
 # Load the five images
-image1 = pygame.image.load("tvMiniGame/warm_1.png")
-image2 = pygame.image.load("tvMiniGame/warm_2.png")
-image3 = pygame.image.load("tvMiniGame/warm_3.png")
-image4 = pygame.image.load("tvMiniGame/warm_4.png")
-image5 = pygame.image.load("tvMiniGame/warm_5.png")
+image1 = pygame.image.load("../Assets/tvMiniGame/warm_1.png")
+image2 = pygame.image.load("../Assets/tvMiniGame/warm_2.png")
+image3 = pygame.image.load("../Assets/tvMiniGame/warm_3.png")
+image4 = pygame.image.load("../Assets/tvMiniGame/warm_4.png")
+image5 = pygame.image.load("../Assets/tvMiniGame/warm_5.png")
 
 # Create a list of the images
 
@@ -66,9 +66,6 @@ def puzzle():
     num1 = -1
     num2 = -1
     while running:
-        instructions = INSTRUCTION_FONT.render(
-            "Each square corresponds to a number from the leftmost square (1) to the rightmost square (5). Type in two numbers to swap the positions of the squares to sort the colors in order.", 1, (0,0,0))
-        screen.blit(instructions, (SCREEN_WIDTH//2 - instructions.get_width()//2, SCREEN_HEIGHT - 30 - instructions.get_height()))
 
         # depending on if its num 1 or 2, do diff things :")
         for event in pygame.event.get():
@@ -100,6 +97,13 @@ def puzzle():
         # Draw the images on the screen
         for i in range(len(images)):
             screen.blit(images[i], image_positions[i])
+        
+        instructions = INSTRUCTION_FONT.render(
+            "Each square corresponds to a # from the leftmost square (1) to the rightmost square (5).", 1, (0,0,0))
+        screen.blit(instructions, (SCREEN_WIDTH//2 - instructions.get_width()//2, SCREEN_HEIGHT//2 + 75))
+        instructions = INSTRUCTION_FONT.render(
+            "Type in two numbers to swap the positions of the squares to sort the colors in order.", 1, (0,0,0))
+        screen.blit(instructions, (SCREEN_WIDTH//2 - instructions.get_width()//2, SCREEN_HEIGHT//2 + 75 + instructions.get_height()))
 
         # Update the screen
         pygame.display.flip()
@@ -114,6 +118,7 @@ def puzzle():
 def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     winner = puzzle()
+    end_window(winner)
     pygame.display.flip()
 
 if __name__ == "__main__":
