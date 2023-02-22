@@ -106,21 +106,21 @@ def doWaterThePlantsGame():
         if(current_time - time_started > 35000):
             #TODO game over
             break
-        if (POT_GROWTH < 5):
+        if (POT_GROWTH < 3):
             potIMG = POT
         else:
             potIMG = POT_FILLED
 
         if (GIRASOL_BIG < 3):
             girasolIMG = GIRASOL
-        elif (GIRASOL_BIG < 10 and GIRASOL_BIG >= 3):
+        elif (GIRASOL_BIG < 6 and GIRASOL_BIG >= 3):
             girasolIMG = HALF_PLANT
         else:
             girasolIMG = GIRASOL_GROWN
 
-        if (POT3_GROWTH < 7):
+        if (POT3_GROWTH < 3):
             pot3IMG = POT3
-        elif (POT_GROWTH < 15 and POT_GROWTH >= 7):
+        elif (POT_GROWTH < 6 and POT_GROWTH >= 3):
             pot3IMG = POT3_HALF
         else:
             pot3IMG = POT3_FILLED

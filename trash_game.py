@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 800
 BIN_WIDTH, BIN_HEIGHT = 150, 200 #maybe change
 WINDOW = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 BACKG = pygame.transform.scale(pygame.image.load(
-    os.path.join('Assets', 'TrashGame', 'kitchen1.jpeg')), (SCREEN_WIDTH, SCREEN_HEIGHT))
+    os.path.join('Assets','kitchen1.jpeg')), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 STRIKE_FONT = pygame.font.Font("Assets/pixel_font.ttf", 20)
 USE_FONT = pygame.font.Font("Assets/pixel_font.ttf", 50)
@@ -61,7 +61,6 @@ def trash_game():
             if strikes < 3:
                 win_game = True
             break
-    end_window(win_game)
     return win_game
 
                 
@@ -91,7 +90,7 @@ def draw_window(item, blue_bin, green_bin, grey_bin):
     pygame.display.update()
 
 def end_window(winner):
-    WINDOW.blit(BACKG, (255,255,255))
+    WINDOW.blit(BACKG, (0,0))
     if winner:
         win_text = USE_FONT.render(
         "YOU WON!", 1, (255,255,255))
@@ -107,10 +106,7 @@ def end_window(winner):
 def main():
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     winner = trash_game()
-    if winner:
-        print("you won")
-    else:
-        print("you lost")
+    end_window(winner)
     pygame.display.flip()
 
 if __name__ == "__main__":

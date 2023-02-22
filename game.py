@@ -1,9 +1,9 @@
 import pygame
 import pytmx
 
-from waterThePlants import * 
+from waterPlantsGame.waterThePlants import * 
 from trash_game import *
-from minigame import *
+from tvMinigame.minigame import *
 from pygame.locals import (
 		# RLEACCEL is an internal var in pygame used
 		# to make sprite drawing faster somehow ¯\_(ツ)_/¯
@@ -176,18 +176,14 @@ while running:
 
 		elif event.type == QUIT:
 				running = False
-
-		elif event.type == TAKEOUT_TRASH:
-			# TODO make this actually do something
-			print("take out the darn trash kiddo")
 		
 		elif event.type == STAR_EVENT:
 			if start_event == "plants":
 				win = doWaterThePlantsGame()	#return value to add points
 				time.sleep(.2)
 				start_event = "trash"
-				star_x = 200
-				star_y = 500
+				star_x = 600
+				star_y = 100
 				star.update(star_x, star_y)
 				#screen.blit(sprite.surf, (star_x, star_y))
 				#move the star
@@ -195,8 +191,8 @@ while running:
 				win = trash_game()	#return value to add points
 				time.sleep(.2)
 				start_event = "tv"
-				star_x = 800
-				star_y = 100
+				star_x = 400
+				star_y = 300
 				star.update(star_x, star_y)
 				#move the star
 			elif start_event == "tv":
@@ -266,7 +262,6 @@ while running:
 				for obj in layer:
 					if pygame.Rect(obj.x, obj.y, obj.width, obj.height).colliderect(player.rect) == True:
 						player.rect.topleft = oldPlayerX, oldPlayerY
-						print("YOU HIT THE RED BLOCK!!")
 						break
 
 	screen.blit(background, (0,0))
